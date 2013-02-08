@@ -1,0 +1,11 @@
+.gui-layers-group {
+    list-style-type: none;
+}
+
+.gui-layers-group ul {
+    list-style-type: none;
+}
+
+.gui-layers-group li span {
+    float: right;
+}
