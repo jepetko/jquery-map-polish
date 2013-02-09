@@ -60,7 +60,7 @@
                     var bChecked = $(tgt).prop("checked");
                     var x = this._getVisIndicators(tgt,{recursive:false});
                         x.each( function(id, el) {
-                            $(el).attr("checked", bChecked).change();
+                            $(el).prop("checked", bChecked).change();
                     });
                 }, this) );
             }, this));
