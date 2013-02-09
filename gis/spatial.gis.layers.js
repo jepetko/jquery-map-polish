@@ -17,11 +17,7 @@
                 at: "right top"
             },
             role: "layergroup",
-
-            // callbacks
-            blur: null,
-            focus: null,
-            select: null
+            mapActions : []
         },
         _create: function() {
             this.groups = this.element;
@@ -31,12 +27,29 @@
                 .sortable();
 
             this.element.find("li").each($.proxy( function(id, el) {
-                var texts = $(el).contents().filter( function() {
+                var $el = $(el);
+                var texts = $el.contents().filter( function() {
                     return this.nodeType == 3 && $.trim(this.nodeValue).length > 0;
                 } );
                 $('<input type="checkbox">').insertBefore( texts );
-                $('<span>actions</span>').insertAfter( texts );
+                var attr = $el.attr("data-map-actions");
+                if( attr ) {
+                    var cssClz = attr.split(",");
 
+                    var actions = "";
+                    for(var i=0;i<cssClz.length;i++) {
+                        var idx = cssClz[i];
+                        if(!$.isNumeric(idx)) continue;
+                        var mapAction = this.options.mapActions[parseInt(idx)];
+                        if( mapAction ) {
+                            actions += '<span class="ui-icon ' + mapAction + '"></span>';
+                        }
+                    }
+                    if( actions != "" ) {
+                        actions = '<span>' + actions + '</span>';
+                        $(actions).insertAfter( texts );
+                    }
+                }
             }, this));
 
             this.element.find("ul").hide();

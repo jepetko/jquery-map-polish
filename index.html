@@ -13,7 +13,7 @@
 	<script>
 	$(function() {
 
-        $( "#layertree" ).layers();
+        $( "#layertree" ).layers( { mapActions : ["ui-icon-tag", "ui-icon-home", "ui-icon-flag"] } );
 
 	});
 	</script>
@@ -63,9 +63,9 @@
     <ul id="layertree">
         <li>Item0
             <ul>
-                <li>Item01</li>
-                <li>Item02</li>
-                <li>Item03
+                <li data-map-actions="0,1">Item01</li>
+                <li data-map-actions="0,2">Item02</li>
+                <li data-map-actions="0">Item03
                     <ul>
                         <li>Item030</li>
                         <li>Item031</li>
