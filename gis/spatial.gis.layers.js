@@ -19,7 +19,74 @@
             role: "layergroup",
             mapActions : []
         },
+        _injectMethods: function() {
+            jQuery.fn.extend(
+                {
+                    _isRoot: function() {
+                        return this.hasClass("gui-layers-group");
+                    },
+                    _ownerLayers: function() {
+                        var ret = $();
+                        this.each( function(id,el) {
+                           if(el.nodeName.toLowerCase() == "li")
+                                ret = ret.add( $(el) );
+                           else
+                                ret = ret.add( $(el).parent("li") );
+                        });
+                        return ret;
+                    },
+                    _visIndicators: function(opts) {
+                        var selector = 'input[type="checkbox"]';
+                        if( opts && opts['recursive'] === true ) {
+                            return this.find(selector);
+                        } else {
+                            return this.children(selector);
+                        }
+                    },
+                    _childrenLayers: function(opts) {
+                        if( this._isRoot() ) {
+                            if( opts && opts['recursive'] === true )
+                                return this.find("li");
+                            else
+                                return this.children("li");
+                        }
+
+                        var $el = this._ownerLayers();
+                        if( opts && opts['recursive'] === true )
+                            return $el.find("li");
+                        else
+                            return $el.children("ul").children("li");
+                    },
+                    _parentLayer: function() {
+                        var $el = this._ownerLayers();
+                        return $el.parent("ul").parent("li");
+                    },
+                    _hasChildrenLayers: function() {
+                        var ch = this._childrenLayers();
+                        if( !ch ) return false;
+                        return ch.length > 0;
+                    },
+                    _hasVisChildrenLayers: function() {
+                        var layers = this._childrenLayers();
+                        var bHas = false;
+                        layers.each( function(id, el) {
+                            var $el = $(el);
+                            var indicators = $el._visIndicators();
+                            indicators.each( function(id, el) {
+                                if( $(el).prop("checked") === true ) {
+                                    if( !bHas ) bHas = true;
+                                }
+                            });
+                        });
+                        return bHas;
+                    }
+                }
+            );
+        },
         _create: function() {
+
+            this._injectMethods();
+
             this.groups = this.element;
             this.element.uniqueId()
                 .addClass("gui-layers-group")
@@ -35,7 +102,7 @@
                 this._addActions($el, texts);
             }, this));
 
-            this.element.find("ul").hide();
+            this.element.find("ul").hide(); //TODO: remove this
 
             this._postCreate();
         },
@@ -52,16 +119,24 @@
                 else
                     ch.show(opts);
             });
-            var indicators = this._getVisIndicators(this.element,{recursive:true});
+            var layers = $(this.element)._childrenLayers({recursive:true});
+            var indicators = layers._visIndicators();
+
             indicators.each( $.proxy(function(id, el) {
                 var $el = $(el);
                 $el.bind("change", $.proxy(function(evt) {
                     var tgt = evt.target;
-                    var bChecked = $(tgt).prop("checked");
-                    var x = this._getVisIndicators(tgt,{recursive:false});
-                        x.each( function(id, el) {
+                    var $tgt = $(tgt);
+                    var bChecked = $tgt.prop("checked");
+                    var layers = $tgt._childrenLayers({recursive:false});
+                    var indicators = layers._visIndicators();
+
+                    indicators.each( function(id, el) {
                             $(el).prop("checked", bChecked).change();
                     });
+
+                    var parent = $tgt._parentLayer();
+                    parent._visIndicators().prop("checked", parent._hasVisChildrenLayers());//.change();
                 }, this) );
             }, this));
         },
@@ -89,61 +164,6 @@
                 actions = '<span>' + actions + '</span>';
                 $(actions).insertAfter( texts );
             }
-        },
-        /**
-         *
-         * @param el
-         * @return {*|HTMLElement[]} "li" elements which are children of the passed element
-         * @private
-         */
-        _getChildren: function(el) {
-            var $el = $(el);
-            if(el.nodeName.toLowerCase() != "li") {
-                $el = $el.parent("li");
-            }
-            return $el.children("ul").children("li");
-        },
-        _hasChildren: function(el) {
-            var ch = this._getChildren(el);
-            if( !ch ) return false;
-            return ch.length > 0;
-        },
-        /**
-         * get visibility indicators (actually checkboxes) of the passed element el.
-         *
-         * @param el element to be passed. If el hasn't nodeName "li" then the parent "li" element is detected.
-         * @param opts { recursive : Boolean (default-value is true) }.
-         * @return {Array}
-         * @private
-         */
-        _getVisIndicators: function(el,opts) {
-            var $el = this._getLayerContainerFrom(el);
-            var selector = 'input[type="checkbox"]';
-            if( $el == null )
-                return this.element.find(selector);
-
-            if( opts && opts['recursive'] === true ) {
-                $el = $el.find(selector);
-            } else {
-                $el = $el.children("ul").children("li").children(selector);
-            }
-            return $el;
-        },
-        _isRoot: function(el) {
-            if( !el ) return false;
-            if( el.length ) el = el.get(0);
-            if( el.nodeName.toLowerCase() != "ul") return false;
-            return this.element.get(0) === el;
-        },
-        _isLayerContainer: function(el) {
-            if( !el ) return false;
-            if( el.length ) el = el.get(0);
-            return el.nodeName.toLowerCase() == "li";
-        },
-        _getLayerContainerFrom: function(el) {
-            if( this._isLayerContainer(el)) return $(el);
-            if( this._isRoot(el) ) return null;
-            return $(el).parent("li");
         }
     });
 }(jQuery));
