@@ -41,7 +41,7 @@
       <file leaf-file-name="spatial.gis.layers-test.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gis-test/spatial.gis.layers-test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="17" selection-start="233" selection-end="233" vertical-scroll-proportion="0.47413793">
+            <state line="151" column="3" selection-start="5145" selection-end="5145" vertical-scroll-proportion="1.0">
               <folding />
             </state>
           </provider>
@@ -258,12 +258,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1031" height="737" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2868526" sideWeight="0.6701031" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2868526" sideWeight="0.6701031" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32847896" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -428,7 +428,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gis-test/spatial.gis.layers-test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="17" selection-start="233" selection-end="233" vertical-scroll-proportion="0.47413793">
+        <state line="151" column="3" selection-start="5145" selection-end="5145" vertical-scroll-proportion="1.0">
           <folding />
         </state>
       </provider>

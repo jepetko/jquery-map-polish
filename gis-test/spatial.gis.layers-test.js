@@ -139,11 +139,11 @@ describe('spatial.gis.layers', function() {
             expect( $container.find('li').length ).toBe(11); //total count of li's
 
             //1. branch
-            expect( $container.children('li:first-child').children('ul').children('li').length).toBe(3);
-            expect( $container.children('li:first-child').children('ul').children('li:first-child').children('ul').length).toBe(0);
-            expect( $container.children('li:first-child').children('ul').children('li:nth-child(2)').children('ul').length).toBe(0);
-            expect( $container.children('li:first-child').children('ul').children('li:nth-child(3)').children('ul').length).toBe(1);
-            expect( $container.children('li:first-child').children('ul').children('li:nth-child(3)').children('ul').children('li').length).toBe(1);
+            expect( $container.find( 'li:first-child > ul > li').length).toBe(3);
+            expect( $container.find( 'li:first-child > ul > li:first-child > ul').length).toBe(0);
+            expect( $container.find( 'li:first-child > ul > li:nth-child(2) > ul').length).toBe(0);
+            expect( $container.find( 'li:first-child > ul > li:nth-child(3) > ul').length).toBe(1);
+            expect( $container.find( 'li:first-child > ul > li:nth-child(3) > ul > li').length).toBe(1);
 
         });
 
